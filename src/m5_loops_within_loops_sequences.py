@@ -5,8 +5,8 @@ This problem provides practice at:
   ***  LOOPS WITHIN LOOPS in SEQUENCES-OF-SUBSEQUENCES problems.  ***
 
 Authors: David Mutchler, Valerie Galluzzi, Mark Hays, Amanda Stouder,
-         their colleagues and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         their colleagues and Dave .
+"""  # TO DO: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 ########################################################################
 # Students:
@@ -90,7 +90,9 @@ def integers(sequence_of_sequences):
     then this function returns:
         [3, 1, 4, 10, 10, 1, 3, 4, 30, -4]
 
-    Precondition:  the given argument is a sequence of sequences.
+    Type hints:
+      :type sequence_of_sequences: (list|tuple) of (list|tuple|string)
+      :rtype: list of int
     """
     # ------------------------------------------------------------------
     # TODO: 3. Implement and test this function.
@@ -116,6 +118,12 @@ def integers(sequence_of_sequences):
     #    DIFFICULTY:      6
     #    TIME ESTIMATE:  10 minutes.
     # ------------------------------------------------------------------
+    new_list = []
+    for subseq in sequence_of_sequences:
+        for item in subseq:
+            if type(item) is int:
+                new_list.append(item)
+    return new_list
 
 
 def run_test_big_letters():
@@ -209,6 +217,13 @@ def big_letters(sequence_of_sequences):
     #    DIFFICULTY:      7
     #    TIME ESTIMATE:  12 minutes.
     # ------------------------------------------------------------------
+    capitals = ''
+    for item in sequence_of_sequences:
+        if type(item) is str:
+            for letter in item:
+                if letter.isupper():
+                    capitals += letter
+    return capitals
 
 # ----------------------------------------------------------------------
 # Calls  main  to start the ball rolling.

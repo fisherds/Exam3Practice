@@ -5,8 +5,8 @@ This problem provides practice at:
   ***  LOOPS WITHIN LOOPS, SEQUENCES and MUTATION  ***
 
 Authors: David Mutchler, Valerie Galluzzi, Mark Hays, Amanda Stouder,
-         their colleagues and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         their colleagues and Dave Fisher.
+"""  # TO DO: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 
 def main():
@@ -56,6 +56,15 @@ def run_test_zero_changer():
     print('Testing the   zero_changer   function:')
     print('--------------------------------------------------')
 
+    # Test 1:
+    test1 = ([8, 4, 0, 9], [77, 0, 0, 1, 5, 0], [4, 4, 4], [4, 0, 4])
+    expected1 = ([8, 4, 1, 9], [77, 2, 3, 1, 5, 4], [4, 4, 4], [4, 5, 4])
+    zero_changer(test1)
+    print()
+    print('Test 1:')
+    print('  Expected:', expected1)
+    print('  Actual:  ', test1)
+
 
 def zero_changer(tuple_of_lists):
     """
@@ -72,7 +81,7 @@ def zero_changer(tuple_of_lists):
           ([8, 4, 0, 9], [77, 0, 0, 1, 5, 0], [4, 4, 4], [4, 0, 4])
       then AFTER this function is called with that tuple of lists,
       the tuple of lists has been MUTATED to:
-          ([8, 4, 1, 9], [77, 2, 3, 1, 5, 0], [4, 4, 4], [4, 5, 4])
+          ([8, 4, 1, 9], [77, 2, 3, 1, 5, 4], [4, 4, 4], [4, 5, 4])
     Note that:
       -- If there are no zeros in the given tuple of lists,
            then this function does nothing.
@@ -88,6 +97,12 @@ def zero_changer(tuple_of_lists):
     #    DIFFICULTY:      7
     #    TIME ESTIMATE:  10 minutes.
     # ------------------------------------------------------------------
+    next_replacement_value = 1
+    for l in tuple_of_lists:
+        for k in range(len(l)):
+            if l[k] == 0:
+                l[k] = next_replacement_value
+                next_replacement_value += 1
 
 
 # ----------------------------------------------------------------------

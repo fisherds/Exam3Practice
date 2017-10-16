@@ -5,8 +5,8 @@ This problem provides practice at:
   ***  LOOPS WITHIN LOOPS in 2D GRAPHICS problems.  ***
 
 Authors: David Mutchler, Valerie Galluzzi, Mark Hays, Amanda Stouder,
-         their colleagues and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         their colleagues and Dave Fisher.
+"""  # TO DO: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 ########################################################################
 # Students:
@@ -29,11 +29,12 @@ Authors: David Mutchler, Valerie Galluzzi, Mark Hays, Amanda Stouder,
 ########################################################################
 
 import rosegraphics as rg
+import math
 
 
 def main():
     """ Calls the   TEST   functions in this module. """
-    run_test_hourglass()
+    # run_test_hourglass()
     run_test_many_hourglasses()
 
 
@@ -101,6 +102,46 @@ def hourglass(window, n, point, radius, color):
     #    DIFFICULTY:      8
     #    TIME ESTIMATE:  25 minutes.
     # ------------------------------------------------------------------
+
+    height_delta = radius * math.sqrt(3)  # Really there was a *2 /2 in there too.
+    middle_x = point.x
+    middle_y = point.y
+    current_y = middle_y - (n - 1) * height_delta
+
+    # Top half (includes the middle)
+    for k in range(n):
+        num_circles = n - k
+        draw_row(num_circles, middle_x, current_y, radius, color, window)
+        current_y += height_delta
+
+    # Bottom half (includes the middle)
+    for k in range(n - 1):
+        num_circles = k + 2
+        draw_row(num_circles, middle_x, current_y, radius, color, window)
+        current_y += height_delta
+
+    window.render()  # Done once for best performance
+
+
+def draw_row(circles_in_row, midpoint_x, y, radius, color, win):
+    """ Draw a row worth of circles using the given point as the middle point."""
+    total_width = circles_in_row * radius * 2
+    current_x = midpoint_x - total_width / 2 + radius
+    for k in range(circles_in_row):
+        draw_circle(current_x, y, radius, color, win)
+        current_x += radius * 2
+
+
+def draw_circle(x, y, radius, color, win):
+    """ Draw a circle at the given x, y in the given color"""
+    circ = rg.Circle(rg.Point(x, y), radius)
+    circ.fill_color = color
+    circ.attach_to(win)
+
+    left_pt = rg.Point(x - radius, y)
+    right_pt = rg.Point(x + radius, y)
+    horz_line = rg.Line(left_pt, right_pt)
+    horz_line.attach_to(win)
 
 
 def run_test_many_hourglasses():
@@ -179,6 +220,23 @@ def many_hourglasses(window, square, m, colors):
     #                         a correct "hourglass" function above)
     #    TIME ESTIMATE:  15 minutes.
     # ------------------------------------------------------------------
+
+    circle_radius = square.length_of_each_side / 2
+    y = square.center.y
+    current_x = square.center.x
+
+    for k in range(m):
+        num_circles = k + 1
+        box_width = circle_radius * 2 * num_circles
+        box_height = circle_radius * 2 + (2 * circle_radius * math.sqrt(3) * (num_circles - 1))
+        corner1 = rg.Point(current_x - box_width / 2, y - box_height / 2)
+        corner2 = rg.Point(current_x + box_width / 2, y + box_height / 2)
+        rect = rg.Rectangle(corner1, corner2)
+        rect.attach_to(window)
+        hourglass(window, k + 1, rg.Point(current_x, y), circle_radius, colors[k % len(colors)])
+        current_x += circle_radius * (num_circles + num_circles + 1)
+    window.render()
+
 
 
 # ----------------------------------------------------------------------

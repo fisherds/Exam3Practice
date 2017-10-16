@@ -98,8 +98,8 @@ def doubler(list1, list2):
     and RETURNs the list [10, 0, 16]
 
     Preconditions:
-        :type list1: list   of integers
-        :type list2: list   of integers
+        :type list1: list   of int
+        :type list2: list   of int
     """
     # ------------------------------------------------------------------
     # TODO: 3. Implement and test this function.
@@ -110,6 +110,12 @@ def doubler(list1, list2):
     #    DIFFICULTY:      4
     #    TIME ESTIMATE:   5 minutes.
     # ------------------------------------------------------------------
+    for k in range(len(list1)):
+        list1[k] *= 2
+    new_list = []
+    for value in list2:
+        new_list.append(value * 2)
+    return new_list
 
 
 # ----------------------------------------------------------------------
